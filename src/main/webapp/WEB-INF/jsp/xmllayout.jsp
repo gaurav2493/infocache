@@ -1,0 +1,1 @@
+<%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%><%@page contentType="application/xml" %><?xml version="1.0" encoding="UTF-8" ?><tiles:insertAttribute name="xml" ignore="true" />
