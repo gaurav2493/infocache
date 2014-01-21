@@ -4,8 +4,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+
 import org.apache.tomcat.jdbc.pool.DataSource;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.web.context.WebApplicationContext;
 
 public class DatabaseUpdater {
 
@@ -13,9 +14,8 @@ public class DatabaseUpdater {
 	
 	public DatabaseUpdater()
 	{
-		ClassPathXmlApplicationContext context =new ClassPathXmlApplicationContext("../datasource.xml");
+		WebApplicationContext context=ListnerClass.springContext;
 		dataSource=(DataSource)context.getBean("dataSource");
-		context.close();
 	}
 
 	protected void addNotice(Notice notice) {

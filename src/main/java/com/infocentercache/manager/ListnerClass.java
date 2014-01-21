@@ -17,6 +17,7 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
 public class ListnerClass implements ServletContextListener {
 
 	private DataSource dataSource;
+	public static WebApplicationContext springContext;
 
 	@Override
 	public void contextDestroyed(ServletContextEvent arg0) {
@@ -31,7 +32,7 @@ public class ListnerClass implements ServletContextListener {
 
 		try {
 
-			WebApplicationContext springContext = WebApplicationContextUtils
+			springContext = WebApplicationContextUtils
 					.getWebApplicationContext(event.getServletContext());
 			dataSource = (DataSource) springContext.getBean("dataSource");
 

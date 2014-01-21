@@ -8,17 +8,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.tomcat.jdbc.pool.DataSource;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class XMLConverter {
 
 	private DataSource dataSource;
-	
+
 	public XMLConverter()
 	{
-		ClassPathXmlApplicationContext context =new ClassPathXmlApplicationContext("../datasource.xml");
-		dataSource=(DataSource)context.getBean("dataSource");
-		context.close();
+		dataSource=(DataSource)ListnerClass.springContext.getBean("dataSource");
 	}
 	public List<Notice> getNoticesXML(int page)
 	{
