@@ -52,6 +52,7 @@ public class XMLConverter {
 		finally{
 			try {
 				conn.close();
+				//dataSource.close();
 				rs.close();
 				ps.close();
 			} catch (Exception e) {
@@ -93,6 +94,7 @@ public class XMLConverter {
 		finally{
 			try {
 				conn.close();
+				//dataSource.close();
 				rs.close();
 				ps.close();
 			} catch (Exception e) {
@@ -139,6 +141,7 @@ public class XMLConverter {
 		finally{
 			try {
 				conn.close();
+				//dataSource.close();
 				rs.close();
 				ps.close();
 			} catch (Exception e) {

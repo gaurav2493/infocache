@@ -53,6 +53,7 @@ public class DatabaseUpdater {
 		}
 		finally{
 			try{
+				//dataSource.close();
 			conn.close();
 			ps.close();
 			}catch(Exception ex){
@@ -100,6 +101,7 @@ public class DatabaseUpdater {
 		finally{
 			try{
 			conn.close();
+			//dataSource.close();
 			ps.close();
 			}catch(SQLException ex){}
 			
@@ -128,6 +130,7 @@ public class DatabaseUpdater {
 		finally{
 			try{
 			con.close();
+			//dataSource.close();
 			ps.close();
 			}catch(SQLException ex){}
 			

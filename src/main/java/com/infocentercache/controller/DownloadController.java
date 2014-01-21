@@ -50,6 +50,7 @@ public class DownloadController {
 		finally{
 			try {
 				conn.close();
+				//dataSource.close();
 				rs.close();
 				ps.close();
 			} catch (Exception e) {

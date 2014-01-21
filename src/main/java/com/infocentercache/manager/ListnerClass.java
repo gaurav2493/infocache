@@ -62,6 +62,7 @@ public class ListnerClass implements ServletContextListener {
 		finally{
 			try{
 			conn.close();
+			//dataSource.close();
 			ps.close();
 			rs.close();
 			}catch(Exception ex){}
