@@ -18,21 +18,21 @@ public class XMLTransferController {
 	@RequestMapping(value="/getnotices",method= RequestMethod.GET)
 	public String getNoticeXml(ModelMap model,@RequestParam("page") int page)
 	{
-		List<Notice> noticesList=XMLConverter.getNoticesXML(page);
+		List<Notice> noticesList=new XMLConverter().getNoticesXML(page);
 		model.addAttribute("noticesList",noticesList);
 		return "getnoticesxml";
 	}
 	@RequestMapping(value="/getnotice",method= RequestMethod.GET)
 	public String getNoticeContentXml(ModelMap model,@RequestParam("id") int id)
 	{
-		Notice notice=XMLConverter.getNoticeXML(id);
+		Notice notice=new XMLConverter().getNoticeXML(id);
 		model.addAttribute("notice",notice);
 		return "getnoticexml";
 	}
 	@RequestMapping(value="/getfiles",method= RequestMethod.GET)
 	public String getFilesContentXml(ModelMap model,@RequestParam("page") int page)
 	{
-		List<InfoFile> filesList=XMLConverter.getFilesXML(page);
+		List<InfoFile> filesList=new XMLConverter().getFilesXML(page);
 		model.addAttribute("filesList", filesList);
 		return "getfilesxml";
 	}

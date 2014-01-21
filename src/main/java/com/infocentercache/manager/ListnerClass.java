@@ -16,7 +16,7 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
 
 public class ListnerClass implements ServletContextListener {
 
-	public static DataSource dataSource;
+	private DataSource dataSource;
 
 	@Override
 	public void contextDestroyed(ServletContextEvent arg0) {
@@ -31,7 +31,7 @@ public class ListnerClass implements ServletContextListener {
 
 		try {
 
-			final WebApplicationContext springContext = WebApplicationContextUtils
+			WebApplicationContext springContext = WebApplicationContextUtils
 					.getWebApplicationContext(event.getServletContext());
 			dataSource = (DataSource) springContext.getBean("dataSource");
 
@@ -76,7 +76,7 @@ public class ListnerClass implements ServletContextListener {
 			e.printStackTrace();
 		}
 
-		System.setProperty("filepath", System.getenv("OPENSHIFT_JBOSSEWS_DIR")+"files/");
+		System.setProperty("filepath", System.getenv("OPENSHIFT_JBOSSAS_DIR")+"files/");
 		new UpdateChecker().start();
 
 	}

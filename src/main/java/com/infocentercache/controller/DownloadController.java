@@ -9,16 +9,19 @@ import java.sql.ResultSet;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.tomcat.jdbc.pool.DataSource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.infocentercache.manager.ListnerClass;
-
 @Controller
 public class DownloadController {
+	
+	@Autowired
+	DataSource dataSource;
 	
 	private static final int BUFFER_SIZE = 4096;
 	
@@ -34,7 +37,7 @@ public class DownloadController {
 		ResultSet rs=null;
 		PreparedStatement ps=null;
 		try {
-			conn=ListnerClass.dataSource.getConnection();
+			conn=dataSource.getConnection();
 			String sql="SELECT path FROM fileid_path WHERE file_id = ?";
 			ps=conn.prepareStatement(sql);
 			ps.setInt(1, fileId);

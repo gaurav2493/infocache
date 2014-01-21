@@ -7,16 +7,27 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.tomcat.jdbc.pool.DataSource;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
 public class XMLConverter {
 
+	private DataSource dataSource;
 	
-	public static List<Notice> getNoticesXML(int page)
+	public XMLConverter()
+	{
+		ClassPathXmlApplicationContext context =new ClassPathXmlApplicationContext("../datasource.xml");
+		dataSource=(DataSource)context.getBean("dataSource");
+		context.close();
+	}
+	public List<Notice> getNoticesXML(int page)
 	{
 		Connection conn=null;
 		ResultSet rs=null;
 		PreparedStatement ps=null;
+
 		try {
-			conn=ListnerClass.dataSource.getConnection();
+			conn=dataSource.getConnection();
 			String sql="SELECT date,subject,posted_by,notice_id " +
 					"FROM notices " +
 					"ORDER BY notice_id DESC LIMIT ?,15";
@@ -55,13 +66,13 @@ public class XMLConverter {
 		
 		return null;
 	}
-	public static Notice getNoticeXML(int id)
+	public Notice getNoticeXML(int id)
 	{
 		Connection conn=null;
 		ResultSet rs=null;
 		PreparedStatement ps=null;
 		try {
-			conn=ListnerClass.dataSource.getConnection();
+			conn=dataSource.getConnection();
 			String sql="SELECT p.notice,q.date,q.subject,q.posted_by " +
 					"FROM noticeid_notice p,notices q " +
 					"WHERE p.notice_id=? and q.notice_id=?";
@@ -96,13 +107,13 @@ public class XMLConverter {
 		
 		return null;
 	}
-	public static List<InfoFile> getFilesXML(int page)
+	public List<InfoFile> getFilesXML(int page)
 	{
 		Connection conn=null;
 		ResultSet rs=null;
 		PreparedStatement ps=null;
 		try {
-			conn=ListnerClass.dataSource.getConnection();
+			conn=dataSource.getConnection();
 			String sql="SELECT date,description,subject,posted_by,file_id " +
 					"FROM files " +
 					"ORDER BY file_id DESC LIMIT ?,10";

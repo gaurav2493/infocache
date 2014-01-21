@@ -13,8 +13,12 @@ import net.infocentre.ViewNoticesPageReader;
 
 public class UpdateChecker extends Thread {
 	
+	DatabaseUpdater databaseUpdater;
+	
 	@Override
 	public void run() {
+		
+		databaseUpdater=new DatabaseUpdater();
 		while (true) {
 			try{
 			updateNotices();
@@ -32,7 +36,7 @@ public class UpdateChecker extends Thread {
 		}
 	}
 
-	public static synchronized int updateNotices() throws Exception {
+	public synchronized int updateNotices() throws Exception {
 
 		ViewNoticesPageReader http = new ViewNoticesPageReader();
 		List<String[]> list;
@@ -64,7 +68,7 @@ public class UpdateChecker extends Thread {
 				return 0;
 			}
 			
-			DatabaseUpdater.addNotice(notice);
+			databaseUpdater.addNotice(notice);
 			try{
 				PushNotifier.pushNoticeNotification(notice.getSubject(), notice.getContent());
 				}catch(Exception ex){}
@@ -80,7 +84,7 @@ public class UpdateChecker extends Thread {
 		return count;
 	}
 
-	public static synchronized int updateFiles() throws NumberFormatException, IOException {
+	public synchronized int updateFiles() throws NumberFormatException, IOException {
 		ViewFilesPageReader pr = new ViewFilesPageReader();
 		List<String[]> list = pr.parseContents(pr.GetPageContent(pr.getLink(1)));
 		int count = 0;
@@ -96,7 +100,7 @@ public class UpdateChecker extends Thread {
 			infoFile.setFileId(Integer.parseInt(myarr[4]));
 			infoFile.setPath(DownloadFile(Integer.parseInt(myarr[4])));
 			
-			DatabaseUpdater.addFile(infoFile);
+			databaseUpdater.addFile(infoFile);
 			try{
 				PushNotifier.pushNoticeNotification(infoFile.getSubject(), infoFile.getDescription());
 					}catch(Exception ex){}

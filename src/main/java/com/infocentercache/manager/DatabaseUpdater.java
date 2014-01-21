@@ -5,14 +5,20 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import org.apache.tomcat.jdbc.pool.DataSource;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class DatabaseUpdater {
 
-	private static DataSource dataSource;
+	private DataSource dataSource;
+	
+	public DatabaseUpdater()
+	{
+		ClassPathXmlApplicationContext context =new ClassPathXmlApplicationContext("../datasource.xml");
+		dataSource=(DataSource)context.getBean("dataSource");
+		context.close();
+	}
 
-	protected static void addNotice(Notice notice) {
-
-		dataSource = ListnerClass.dataSource;
+	protected void addNotice(Notice notice) {
 
 		Connection conn=null;
 		PreparedStatement ps=null ;
@@ -43,20 +49,21 @@ public class DatabaseUpdater {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			System.out.println("Datasource = "+dataSource);
 		}
 		finally{
 			try{
 			conn.close();
 			ps.close();
-			}catch(SQLException ex){}
+			}catch(Exception ex){
+				System.out.println("Datasource = "+dataSource);
+			}
 			
 		}
 
 	}
 
-	public static void addFile(InfoFile infoFile) {
-
-		dataSource = ListnerClass.dataSource;
+	public void addFile(InfoFile infoFile) {
 
 		Connection conn=null;
 		PreparedStatement ps=null ;
