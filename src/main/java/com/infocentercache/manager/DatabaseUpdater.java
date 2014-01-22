@@ -4,8 +4,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+import javax.sql.DataSource;
 
-import org.apache.tomcat.jdbc.pool.DataSource;
+
 import org.springframework.web.context.WebApplicationContext;
 
 public class DatabaseUpdater {

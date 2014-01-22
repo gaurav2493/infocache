@@ -8,7 +8,7 @@
 	http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 	
 	<context:annotation-config />
-    	<bean id="dataSource" class="org.apache.tomcat.jdbc.pool.DataSource">
+    	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
 		<property name="url"

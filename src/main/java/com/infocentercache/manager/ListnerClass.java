@@ -7,10 +7,10 @@ import java.sql.SQLException;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
+import javax.sql.DataSource;
 
 import net.infocentre.InfoAuthenticator;
 
-import org.apache.tomcat.jdbc.pool.DataSource;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
