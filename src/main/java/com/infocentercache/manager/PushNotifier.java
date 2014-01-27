@@ -4,13 +4,63 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.net.URL;
 import java.net.URLConnection;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
-public class PushNotifier {
+import javax.sql.DataSource;
+
+import org.springframework.web.context.WebApplicationContext;
+
+public class PushNotifier implements Runnable {
 	
-	public static void pushNoticeNotification(String subtitle,String body)
+	private DataSource dataSource;
+	private String subtitle;
+	private String body;
+	private String uri;
+	
+	public PushNotifier(){}
+	
+	public PushNotifier(String uri,String subtitle,String body)
+	{
+		this.subtitle=subtitle;
+		this.body=body;
+		this.uri=uri;
+	}	
+	
+	public void pushToAllWindowsPhone(String subtitle,String body)
+	{
+		WebApplicationContext context=ListnerClass.springContext;
+		dataSource=(DataSource)context.getBean("dataSource");
+		Connection conn=null;
+		PreparedStatement ps=null;
+		ResultSet rs=null;
+		String sql="SELECT uri FROM pushuri";
+		try{
+			conn=dataSource.getConnection();
+			ps=conn.prepareStatement(sql);
+			rs=ps.executeQuery();
+			
+			while(rs.next())
+			{
+				new Thread(new PushNotifier(rs.getString("uri"),subtitle,body)).start();
+			}
+		}
+		catch(Exception ex){}
+		finally
+		{
+			try{
+				conn.close();
+				ps.close();
+				rs.close();
+			}catch(Exception ex){}
+		}
+	}
+	
+	private void pushNoticeNotification()
 	{
 		String title="New Notice";
-		String url=System.getProperty("wpuri");
+		String url=this.uri;
  
         String message="<?xml version=\"1.0\" encoding=\"utf-8\"?>" +
                 "<wp:Notification xmlns:wp=\"WPNotification\">" +
@@ -40,6 +90,11 @@ public class PushNotifier {
         System.out.println("Notification Status="+connection.getHeaderFields().get("X-NotificationStatus"));
         System.out.println("Subscription Status="+connection.getHeaderFields().get("X-SubscriptionStatus"));
         System.out.println("Device Connection Status="+connection.getHeaderFields().get("X-DeviceConnectionStatus"));
+	}
+
+	@Override
+	public void run() {
+		this.pushNoticeNotification();
 	}
 
 }

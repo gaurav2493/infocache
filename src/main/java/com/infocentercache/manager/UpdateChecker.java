@@ -70,7 +70,7 @@ public class UpdateChecker extends Thread {
 			
 			databaseUpdater.addNotice(notice);
 			try{
-				PushNotifier.pushNoticeNotification(notice.getSubject(), notice.getContent());
+				new PushNotifier().pushToAllWindowsPhone(notice.getSubject().replaceAll("&amp;","AND"),notice.getAuthor().replaceAll("&amp;","AND"));
 				}catch(Exception ex){}
 			
 			
@@ -102,7 +102,7 @@ public class UpdateChecker extends Thread {
 			
 			databaseUpdater.addFile(infoFile);
 			try{
-				PushNotifier.pushNoticeNotification(infoFile.getSubject(), infoFile.getDescription());
+				new PushNotifier().pushToAllWindowsPhone(infoFile.getSubject().replaceAll("&amp;","AND"), infoFile.getAuthor().replaceAll("&amp;","AND"));
 					}catch(Exception ex){}
 			if(infoFile.getFileId()>maxFileId)
 			{

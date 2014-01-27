@@ -81,10 +81,10 @@ public class XMLConverter {
 			rs=ps.executeQuery();
 			Notice notice=new Notice();			
 			rs.next();
-			notice.setAuthor(rs.getString("posted_by").replaceAll("&","AND"));
-			notice.setContent(rs.getString("notice").replaceAll("&","AND").replaceAll("(?i)<br([^>]+)>", "&#10;"));
+			notice.setAuthor(rs.getString("posted_by").replaceAll("&amp;","AND"));
+			notice.setContent(rs.getString("notice").replaceAll("&amp;","AND").replaceAll("(?i)<br([^>]+)>", "&#10;"));
 			notice.setDate(rs.getDate("date"));
-			notice.setSubject(rs.getString("subject").replaceAll("&","AND").replaceAll("(?i)<br([^>]+)>", "&#10;"));
+			notice.setSubject(rs.getString("subject").replaceAll("&amp;","AND").replaceAll("(?i)<br([^>]+)>", "&#10;"));
 			notice.setNoticeId(id);			
 			return notice;
 			
@@ -127,9 +127,9 @@ public class XMLConverter {
 			{
 				file=new InfoFile();
 				file.setDate(rs.getDate("date"));
-				file.setDescription(rs.getString("description").replaceAll("&","AND"));
-				file.setSubject(rs.getString("subject").replaceAll("&","AND"));
-				file.setAuthor(rs.getString("posted_by").replaceAll("&","AND"));
+				file.setDescription(rs.getString("description").replaceAll("&amp;","AND"));
+				file.setSubject(rs.getString("subject").replaceAll("&amp;","AND"));
+				file.setAuthor(rs.getString("posted_by").replaceAll("&amp;","AND"));
 				file.setFileId(rs.getInt("file_id"));
 				filesList.add(file);
 			}

@@ -22,6 +22,7 @@ public class InfoAuthenticator {
 			throws Exception {
 
 		CookieHandler.setDefault(new CookieManager());
+		
 		String postParams = getFormParams(username, password);
 		List<String> cookies;
 		URL obj = new URL("http://210.212.85.155/login/login.php");
