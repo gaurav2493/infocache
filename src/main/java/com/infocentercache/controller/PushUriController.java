@@ -25,7 +25,7 @@ public class PushUriController {
 		
 		Connection conn=null;
 		PreparedStatement ps=null;
-		String sql="REPLACE INTO pushuri(id,uri) VALUES(?,?)";
+		String sql="REPLACE INTO pushuri(id,uri,date) VALUES(?,?,?)";
 		try
 		{
 			conn=dataSource.getConnection();
@@ -34,7 +34,9 @@ public class PushUriController {
 			ps.setString(2, uri);
 			ps.setDate(3, new java.sql.Date(new java.util.Date().getTime()));
 			ps.executeUpdate();
-		}catch(Exception ex){}
+		}catch(Exception ex){
+			System.out.println(ex);
+		}
 		finally{
 			try{
 				conn.close();
