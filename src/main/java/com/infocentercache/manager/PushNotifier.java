@@ -18,17 +18,19 @@ public class PushNotifier implements Runnable {
 	private String subtitle;
 	private String body;
 	private String uri;
+	private String page;
 	
 	public PushNotifier(){}
 	
-	public PushNotifier(String uri,String subtitle,String body)
+	public PushNotifier(String uri,String subtitle,String body,String page)
 	{
 		this.subtitle=subtitle;
 		this.body=body;
 		this.uri=uri;
+		this.page=page;
 	}	
 	
-	public void pushToAllWindowsPhone(String subtitle,String body)
+	public void pushToAllWindowsPhone(String subtitle,String body,String page)
 	{
 		WebApplicationContext context=ListnerClass.springContext;
 		dataSource=(DataSource)context.getBean("dataSource");
@@ -43,7 +45,7 @@ public class PushNotifier implements Runnable {
 			
 			while(rs.next())
 			{
-				new Thread(new PushNotifier(rs.getString("uri"),subtitle,body)).start();
+				new Thread(new PushNotifier(rs.getString("uri"),subtitle,body,page)).start();
 			}
 		}
 		catch(Exception ex){}
@@ -67,7 +69,7 @@ public class PushNotifier implements Runnable {
                 "<wp:Toast>" +
                      "<wp:Text1>" + title + "</wp:Text1>" +
                      "<wp:Text2>" + subtitle + "</wp:Text2>" +
-                     "<wp:Param>/Page2.xaml?NavigatedFrom="+body+"</wp:Param>" +
+                     "<wp:Param>/"+page+"?NavigatedFrom="+body+"</wp:Param>" +
                 "</wp:Toast> " +
              "</wp:Notification>";
         URLConnection connection=null;

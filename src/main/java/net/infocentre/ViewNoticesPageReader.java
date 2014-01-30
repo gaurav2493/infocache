@@ -19,7 +19,6 @@ public class ViewNoticesPageReader extends PageReader {
   @Override
 public List<String[]> parseContents(String htmlTableContent) throws IOException
   {
-
 	  Document doc = Jsoup.parse(htmlTableContent);
 	  int i=0;
 	  List<String[]> fileList=new ArrayList<String[]>();
