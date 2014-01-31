@@ -61,7 +61,11 @@ public class PushNotifier implements Runnable {
 	
 	private void pushNoticeNotification()
 	{
-		String title="New Notice";
+		String title;
+		if(page.contains("Notice"))
+			title="New Notice";
+		else 
+			title="New File";
 		String url=this.uri;
  
         String message="<?xml version=\"1.0\" encoding=\"utf-8\"?>" +
@@ -89,9 +93,9 @@ public class PushNotifier implements Runnable {
         finally {
              try { output.close(); } catch (IOException logOrIgnore) {}
         }
-        System.out.println("Notification Status="+connection.getHeaderFields().get("X-NotificationStatus"));
+       /* System.out.println("Notification Status="+connection.getHeaderFields().get("X-NotificationStatus"));
         System.out.println("Subscription Status="+connection.getHeaderFields().get("X-SubscriptionStatus"));
-        System.out.println("Device Connection Status="+connection.getHeaderFields().get("X-DeviceConnectionStatus"));
+        System.out.println("Device Connection Status="+connection.getHeaderFields().get("X-DeviceConnectionStatus"));*/
 	}
 
 	@Override
