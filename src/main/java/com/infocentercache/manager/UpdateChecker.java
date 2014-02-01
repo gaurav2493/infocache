@@ -70,7 +70,8 @@ public class UpdateChecker extends Thread {
 			
 			databaseUpdater.addNotice(notice);
 			try{
-				new PushNotifier().pushToAllWindowsPhone(notice.getSubject().replaceAll("&amp;","AND"),notice.getAuthor().replaceAll("&amp;","AND"),"ViewNotices.xaml");
+				new PushNotifier(notice.getSubject().replaceAll("&amp;","AND"),notice.getAuthor().replaceAll("&amp;","AND"),"ViewNotices.xaml");
+				new PushNotifierAndroid(notice.getSubject().replaceAll("&amp;","AND"),notice.getAuthor().replaceAll("&amp;","AND"));
 				}catch(Exception ex){}
 			
 			

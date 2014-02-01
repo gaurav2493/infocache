@@ -30,6 +30,12 @@ public class PushNotifier implements Runnable {
 		this.page=page;
 	}	
 	
+	public PushNotifier(String subject, String author, String page) {
+
+		pushToAllWindowsPhone(subject, author, page);
+		new PushNotifierAndroid(subject,author);
+	}
+
 	public void pushToAllWindowsPhone(String subtitle,String body,String page)
 	{
 		WebApplicationContext context=ListnerClass.springContext;

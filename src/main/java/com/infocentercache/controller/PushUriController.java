@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.infocentercache.manager.PushNotifierAndroid;
+
 
 @Controller
 public class PushUriController {
@@ -49,10 +51,37 @@ public class PushUriController {
 	}
 	
 	@RequestMapping(value="/geturi", method=RequestMethod.GET)
-	public @ResponseBody String byParameter(HttpServletResponse response) {
+	public @ResponseBody String byParameter(@RequestParam("message") String message,HttpServletResponse response) {
 		response.setContentType("text/plain");
-		
+		new PushNotifierAndroid(message, "hello");
 	    response.setCharacterEncoding("UTF-8");
-		return "Not implemented yet";
+		return "sent";
+	}
+	@RequestMapping(value="/androiddeviceidsubmit", method=RequestMethod.POST)
+	public @ResponseBody String androidRegister(@RequestParam("regId") String uri,@RequestParam("name") String id, HttpServletResponse response) {
+		
+		Connection conn=null;
+		PreparedStatement ps=null;
+		String sql="REPLACE INTO androidpushid(id,deviceid,date) VALUES(?,?,?)";
+		try
+		{
+			conn=dataSource.getConnection();
+			ps=conn.prepareStatement(sql);
+			ps.setString(1, id);
+			ps.setString(2, uri);
+			ps.setDate(3, new java.sql.Date(new java.util.Date().getTime()));
+			ps.executeUpdate();
+		}catch(Exception ex){
+			System.out.println(ex);
+		}
+		finally{
+			try{
+				conn.close();
+				ps.close();
+			}catch(Exception ex){}
+		}
+		response.setContentType("text/html");
+	    response.setCharacterEncoding("UTF-8");
+		return "Acknowledged";
 	}
 }
