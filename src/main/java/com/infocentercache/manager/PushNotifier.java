@@ -33,7 +33,10 @@ public class PushNotifier implements Runnable {
 	public PushNotifier(String subject, String author, String page) {
 
 		pushToAllWindowsPhone(subject, author, page);
-		new PushNotifierAndroid(subject,author);
+		if(page.contains("Notice"))
+			new PushNotifierAndroid("New Notice: "+subject,author);
+		else
+			new PushNotifierAndroid("New File: "+subject,author);
 	}
 
 	public void pushToAllWindowsPhone(String subtitle,String body,String page)
