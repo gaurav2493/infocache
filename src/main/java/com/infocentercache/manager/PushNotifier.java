@@ -98,11 +98,15 @@ public class PushNotifier implements Runnable {
        
              output.write(message.getBytes(),0,message.getBytes().length);
         }
-        catch(IOException ex){}
-        finally {
-             try { output.close(); } catch (IOException logOrIgnore) {}
+        catch(IOException ex){
+        	System.out.println(ex);
         }
-       /* System.out.println("Notification Status="+connection.getHeaderFields().get("X-NotificationStatus"));
+        finally {
+             try { output.close(); } catch (IOException logOrIgnore) {
+            	 System.out.println(logOrIgnore);
+             }
+        }
+        /*System.out.println("Notification Status="+connection.getHeaderFields().get("X-NotificationStatus"));
         System.out.println("Subscription Status="+connection.getHeaderFields().get("X-SubscriptionStatus"));
         System.out.println("Device Connection Status="+connection.getHeaderFields().get("X-DeviceConnectionStatus"));*/
 	}
