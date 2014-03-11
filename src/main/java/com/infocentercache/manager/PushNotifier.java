@@ -106,9 +106,9 @@ public class PushNotifier implements Runnable {
             	 System.out.println(logOrIgnore);
              }
         }
-        /*System.out.println("Notification Status="+connection.getHeaderFields().get("X-NotificationStatus"));
+        System.out.println("Notification Status="+connection.getHeaderFields().get("X-NotificationStatus"));
         System.out.println("Subscription Status="+connection.getHeaderFields().get("X-SubscriptionStatus"));
-        System.out.println("Device Connection Status="+connection.getHeaderFields().get("X-DeviceConnectionStatus"));*/
+        System.out.println("Device Connection Status="+connection.getHeaderFields().get("X-DeviceConnectionStatus"));
 	}
 
 	@Override

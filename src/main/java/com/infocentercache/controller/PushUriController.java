@@ -116,4 +116,36 @@ public class PushUriController {
 	    response.setCharacterEncoding("UTF-8");
 		return result;
 	}
+	
+	@RequestMapping(value="/windowsuri", method=RequestMethod.GET)
+	public @ResponseBody String printwindowsuri(HttpServletResponse response) {
+		
+		Connection conn=null;
+		PreparedStatement ps=null;
+		ResultSet rs=null;
+		String result="";
+		String sql="SELECT * FROM pushuri";
+		try
+		{
+			conn=dataSource.getConnection();
+			ps=conn.prepareStatement(sql);
+			rs=ps.executeQuery();
+			while(rs.next())
+			{
+				result+=rs.getString(1)+" "+rs.getString(2)+" "+rs.getString(3)+"<br/>";
+			}
+		}catch(Exception ex){
+			System.out.println(ex);
+		}
+		finally{
+			try{
+				conn.close();
+				ps.close();
+				rs.close();
+			}catch(Exception ex){}
+		}
+		response.setContentType("text/html");
+	    response.setCharacterEncoding("UTF-8");
+		return result;
+	}
 }
